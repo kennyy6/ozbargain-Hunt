@@ -17,8 +17,8 @@ def top20():
         entry = feed.entries[i].title
         products += (entry+"\n")
     #print (link.find(".//title").text)
-    print(products)
     bot.send_message(chat_id= credentials.chat_acutal_id ,text=products)
     #print(bot.get_me())
 
-print(top20())
+if __name__ =="__main__":
+    top20()
