@@ -7,6 +7,6 @@ Note that:
         
 
 Things i Would like to do: 
-* Implement a Search Function by having a database of some sort that Notifys Users when a specfic product comes to sale.
+* ~~Implement a Search Function by having a database of some sort that Notifys Users when a specfic product comes to sale.~~   &#x2611; 
 * Have specific commands to text the bot.
 
