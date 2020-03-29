@@ -5,6 +5,10 @@ import credentials
 
 
 def topPage():
+    """
+    Sends all the products within the top page
+    :return:
+    """
     page = requests.get("https://www.ozbargain.com.au")
 
     parser = BeautifulSoup(page.text,"html.parser")
@@ -51,7 +55,7 @@ def searchitem(itemSearch):
     if products == "":
         products = "There is not a sale available"
     bot.send_message(chat_id=credentials.chat_acutal_id, text=products)
-        #print(itemTitle)
+    #print(itemTitle)
 
 if __name__ == "__main__":
     #topPage()
