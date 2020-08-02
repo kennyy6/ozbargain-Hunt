@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
 import telegram
+from telegram.ext import Updater, CommandHandler,CallbackQueryHandler,MessageHandler, Filters
 import credentials
 
 
-def topPage():
+def topPage(update,context):
     """
     Sends all the products within the top page
     :return:
@@ -23,12 +24,13 @@ def topPage():
     bot.send_message(chat_id=credentials.chat_acutal_id, text=products)
     #     print(i)
 
-def searchitem(itemSearch):
+def searchitem(update,conext):
     """
     If user wants to search for item then parses it and finds it
     :param item:
     :return:
     """
+    itemSearch = update.message.text
     itemSearch = itemSearch.replace(" ","%20")
     base_url = "https://www.ozbargain.com.au" +"/search/node/"+itemSearch
     page = requests.get(base_url)
@@ -39,7 +41,6 @@ def searchitem(itemSearch):
     # print(items[1]
     check = items[0]
     test=check.find("span","tagger expired")
-    # print(test.text == "out of stock")
 
     products = ""
     for i in range(len(items)):
@@ -61,4 +62,10 @@ if __name__ == "__main__":
     #topPage()
     bot = telegram.Bot(token=credentials.api_id)
     #searchitem("airpods 1")
-    topPage()
+    response = Updater(credentials.api_id,use_context= True)
+    response.dispatcher.add_handler(CommandHandler("top10",topPage))
+    response.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, searchitem))
+
+    response.start_polling()
+    response.idle()
+
